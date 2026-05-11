@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AREX CZ | Čerpací stanice a distribuce PHM</title>
+  <style>
+    :root {
+      --blue:#0b3a78;
+      --blue2:#06244d;
+      --yellow:#ffc400;
+      --text:#1b2430;
+      --muted:#6b7280;
+      --bg:#f5f7fb;
+      --white:#fff;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.6;
+    }
+
+    header {
+      min-height:90vh;
+      color:white;
+      background:
+        linear-gradient(120deg, rgba(6,36,77,.95), rgba(11,58,120,.82)),
+        url("https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+    }
+
+    nav {
+      max-width:1200px;
+      margin:auto;
+      padding:24px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logo {
+      font-size:30px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .logo span { color:var(--yellow); }
+
+    nav a {
+      color:white;
+      text-decoration:none;
+      margin-left:26px;
+      font-weight:700;
+    }
+
+    .hero {
+      max-width:1200px;
+      margin:auto;
+      padding:120px 20px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .badge {
+      display:inline-block;
+      background:rgba(255,196,0,.16);
+      color:var(--yellow);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:700;
+      margin-bottom:20px;
+    }
+
+    h1 {
+      font-size:58px;
+      line-height:1.05;
+      margin-bottom:24px;
+    }
+
+    .hero p {
+      font-size:20px;
+      color:#e7eef9;
+      max-width:680px;
+    }
+
+    .buttons {
+      margin-top:34px;
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      display:inline-block;
+      padding:15px 24px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .btn-primary {
+      background:var(--yellow);
+      color:#111827;
+    }
+
+    .btn-secondary {
+      border:1px solid rgba(255,255,255,.4);
+      color:white;
+    }
+
+    .hero-card {
+      background:white;
+      color:var(--text);
+      padding:32px;
+      border-radius:24px;
+      box-shadow:0 30px 80px rgba(0,0,0,.28);
+    }
+
+    .hero-card h3 { color:var(--blue); margin-bottom:16px; }
+
+    .hero-card ul {
+      list-style:none;
+    }
+
+    .hero-card li {
+      padding:12px 0;
+      border-bottom:1px solid #edf0f5;
+      font-weight:700;
+    }
+
+    .hero-card li::before {
+      content:"✓";
+      color:var(--yellow);
+      margin-right:10px;
+      font-weight:900;
+    }
+
+    section {
+      max-width:1200px;
+      margin:auto;
+      padding:80px 20px;
+    }
+
+    .section-title {
+      text-align:center;
+      margin-bottom:46px;
+    }
+
+    .section-title span {
+      color:var(--yellow);
+      font-weight:900;
+    }
+
+    .section-title h2 {
+      font-size:40px;
+      color:var(--blue2);
+      margin-bottom:12px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+    }
+
+    .card {
+      background:white;
+      padding:30px;
+      border-radius:22px;
+      box-shadow:0 12px 40px rgba(15,23,42,.08);
+      transition:.25s;
+    }
+
+    .card:hover {
+      transform:translateY(-6px);
+    }
+
+    .icon {
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--yellow),#ffde66);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      margin-bottom:20px;
+    }
+
+    .card h3 {
+      color:var(--blue);
+      margin-bottom:10px;
+    }
+
+    .split {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:42px;
+      align-items:center;
+    }
+
+    .dark {
+      max-width:none;
+      background:linear-gradient(135deg,var(--blue2),var(--blue));
+      color:white;
+    }
+
+    .dark-inner {
+      max-width:1200px;
+      margin:auto;
+      padding:80px 20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .dark h2 {
+      font-size:40px;
+      margin-bottom:20px;
+    }
+
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .stat {
+      background:rgba(255,255,255,.1);
+      padding:24px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.15);
+    }
+
+    .stat strong {
+      display:block;
+      font-size:34px;
+      color:var(--yellow);
+    }
+
+    .locations {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:16px;
+    }
+
+    .loc {
+      background:white;
+      border-radius:16px;
+      padding:22px;
+      text-align:center;
+      font-weight:800;
+      color:var(--blue);
+      box-shadow:0 10px 30px rgba(15,23,42,.07);
+    }
+
+    .contact {
+      background:white;
+      border-radius:28px;
+      padding:42px;
+      box-shadow:0 20px 60px rgba(15,23,42,.1);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      align-items:center;
+    }
+
+    .contact h2 {
+      color:var(--blue2);
+      font-size:36px;
+      margin-bottom:12px;
+    }
+
+    .contact-box {
+      background:var(--bg);
+      padding:26px;
+      border-radius:20px;
+    }
+
+    footer {
+      background:#071a36;
+      color:#cbd5e1;
+      text-align:center;
+      padding:28px 20px;
+    }
+
+    @media(max-width:900px) {
+      .hero,
+      .split,
+      .dark-inner,
+      .contact {
+        grid-template-columns:1fr;
+      }
+
+      .grid {
+        grid-template-columns:1fr;
+      }
+
+      .locations {
+        grid-template-columns:1fr 1fr;
+      }
+
+      h1 {
+        font-size:40px;
+      }
+
+      nav {
+        flex-direction:column;
+        gap:16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">AREX <span>CZ</span></div>
+    <div>
+      <a href="#sluzby">Služby</a>
+      <a href="#adblue">AdBlue</a>
+      <a href="#pobocky">Pobočky</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div>
+      <div class="badge">Kvalita • Bezpečnost • Spolehlivost</div>
+      <h1>Moderní čerpací stanice a distribuce pohonných hmot</h1>
+      <p>
+        AREX CZ a.s. zajišťuje maloobchodní i velkoobchodní prodej PHM,
+        přepravu ropných produktů, AdBlue a komplexní logistické služby
+        pro firmy i jednotlivce.
+      </p>
+      <div class="buttons">
+        <a href="#kontakt" class="btn btn-primary">Kontaktovat společnost</a>
+        <a href="#sluzby" class="btn btn-secondary">Zobrazit služby</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>Co zákazník získá</h3>
+      <ul>
+        <li>Kvalitní pohonné hmoty</li>
+        <li>Distribuci PHM po České republice</li>
+        <li>AdBlue v různých typech balení</li>
+        <li>Moderní cisternovou dopravu</li>
+        <li>Individuální přístup k odběratelům</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section id="sluzby">
+  <div class="section-title">
+    <span>NAŠE SLUŽBY</span>
+    <h2>Kompletní řešení pro PHM</h2>
+    <p>Od čerpacích stanic přes skladování až po bezpečnou přepravu.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="icon">⛽</div>
+      <h3>Čerpací stanice</h3>
+      <p>Prodej kvalitních pohonných hmot v síti čerpacích stanic AREX CZ.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🚛</div>
+      <h3>Doprava PHM</h3>
+      <p>Moderní cisternové soupravy vybavené pro bezpečnou přepravu nebezpečných látek.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🛢️</div>
+      <h3>Skladování a velkoobchod</h3>
+      <p>Dodávky pohonných hmot pro firmy, dopravce, průmysl i zemědělství.</p>
+    </div>
+  </div>
+</section>
+
+<div class="dark" id="adblue">
+  <div class="dark-inner">
+    <div>
+      <h2>AdBlue pro moderní vozové parky</h2>
+      <p>
+        AREX CZ nabízí dodávky AdBlue pro nákladní vozidla se SCR katalyzátory.
+        Řešení je vhodné pro dopravní firmy, průmyslové podniky i větší odběratele.
+      </p>
+      <br>
+      <a href="#kontakt" class="btn btn-primary">Poptat AdBlue</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>5+</strong>
+        lokalit čerpacích stanic
+      </div>
+      <div class="stat">
+        <strong>ADR</strong>
+        přeprava nebezpečných látek
+      </div>
+      <div class="stat">
+        <strong>PHM</strong>
+        maloobchod i velkoobchod
+      </div>
+      <div class="stat">
+        <strong>CZ</strong>
+        česká společnost
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="pobocky">
+  <div class="section-title">
+    <span>KDE NÁS NAJDETE</span>
+    <h2>Čerpací stanice AREX CZ</h2>
+  </div>
+
+  <div class="locations">
+    <div class="loc">České Budějovice</div>
+    <div class="loc">Ledenice</div>
+    <div class="loc">Kaplice</div>
+    <div class="loc">Hubenov</div>
+    <div class="loc">Lhenice</div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="contact">
+    <div>
+      <h2>Máte zájem o spolupráci?</h2>
+      <p>
+        Ozvěte se společnosti AREX CZ a.s. a domluvte si dodávky pohonných hmot,
+        AdBlue nebo logistické služby na míru.
+      </p>
+      <br>
+      <a href="tel:+420387221545" class="btn btn-primary">Zavolat: 387 221 545</a>
+    </div>
+
+    <div class="contact-box">
+      <h3>AREX CZ a.s.</h3>
+      <p>Pražská třída 2772/121</p>
+      <p>České Budějovice</p>
+      <p><strong>Telefon:</strong> 387 221 545</p>
+      <p><strong>Web:</strong> www.arex.cz</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 AREX CZ a.s. | Návrh modernizace webové prezentace
+</footer>
+
+</body>
+</html>
